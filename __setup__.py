@@ -10,8 +10,8 @@ _executables = [
         target_name = "Flagsweeper.exe", 
         shortcut_name = "Flagsweeper",
         shortcut_dir = "DesktopFolder",
-        icon = "icon.ico",
-        base = "Win32GUI"
+        icon = "resources\icon.ico",
+        base = "Win32GUI",
     )
 ]
 
@@ -30,7 +30,8 @@ _build_exe_options = dict(
     ],
     replace_paths = [("*", "")],
     optimize = 2,
-    silent = False
+    include_msvcr = True,
+    silent = False,
 )
 
 setup(
