@@ -16,7 +16,7 @@ _executables = [
 ]
 
 _build_exe_options = dict(
-    build_exe = "Flagsweeper v0.4.1",
+    build_exe = "Flagsweeper v0.4.2",
     packages = [],
     include_files =  ["resources"],
     zip_include_packages = ["*"],
@@ -35,7 +35,7 @@ _build_exe_options = dict(
 
 setup(
     name = "Flagsweeper",
-    version = "0.4.1",
+    version = "0.4.2",
     description = "Flagsweeper",
     options = {"build_exe": _build_exe_options},
     executables = _executables

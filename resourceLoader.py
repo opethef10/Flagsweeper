@@ -12,7 +12,7 @@ def loadFlag(color, size):
 
 @lru_cache
 def loadFont(size):
-    return pg.font.Font(str(DIR / "Formula1_Display-Regular.otf"), size)
+    return pg.font.Font(str(DIR / "f1font.otf"), size)
     
 DIR = (Path.cwd() / sys.argv[0]).parent / "resources"
 ICON = pg.image.load(str(DIR / "icon.png"))
