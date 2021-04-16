@@ -5,7 +5,10 @@ from resourceLoader import ICON
 from scenes import MainMenu, CustomMenu, Playing
 
 class GameManager:
+    """The class which is responsible for management of the game"""
+    
     def __init__(self):
+        """Initialize screen and scenes"""
         os.environ['SDL_VIDEO_CENTERED'] = "True"
         pg.init()
         pg.display.set_caption(TITLE)
@@ -21,12 +24,14 @@ class GameManager:
         self.scene = self.sceneDict["MAIN"]
         
     def changeScene(self):
+        """Deactivate the previous scene and activate the next scene"""
         nextSceneName, *args = self.scene.nextSceneArgs
         self.scene.deactivate()
         self.scene = self.sceneDict[nextSceneName]
         self.scene.activate(*args)
     
     def loop(self):
+        """Game loop function"""
         delta = self.clock.tick(self.FPS)
         self.scene.handleEvents()
         self.scene.update(delta)

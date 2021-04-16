@@ -3,6 +3,8 @@ from resourceLoader import loadFont
 from settings import VERSION
 
 class Scene:
+    """Superclass for Scene objects"""
+    
     BGCOLOR = pg.Color("gray")
     DEFAULT_TEXT_COLOR = pg.Color("black")
     
@@ -30,11 +32,16 @@ class Scene:
         self.nextSceneArgs = args
     
     def deactivate(self): 
+        """Cleanup the scene before a scene change"""
         self.changeFlag = False
         self.nextSceneArgs = None
     
-    def activate(self, *args): pass
-    def update(self, delta): pass
+    def activate(self, *args):
+        """To be extended by subclasses"""
+        
+    def update(self, delta):
+        """To be extended by subclasses"""
+        
     def render(self):
         self.screen.fill(self.BGCOLOR)
         # self.drawText(self.screen, (375,620), f"Mouse pos: {pg.mouse.get_pos()}", self.fonts(12), "topleft")

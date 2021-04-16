@@ -5,6 +5,11 @@ import pygame as pg
 from tile import Tile
 
 class Player:
+    """Player information.
+       A basic namespace that doesn't need its own file
+       in order to make things easier for Board class.
+    """
+       
     def __init__(self, index, name):
         self.index = index 
         self.name = name
@@ -13,12 +18,16 @@ class Player:
         self.lastCoord = None
 
 class Board:
+    """Game board class that is responsible for implementing game logic"""
+    
     WIDTH = 500
     HEIGHT = 500
     OFFSET_X = 25
     OFFSET_Y = 100
     
-    def __init__(self,size,flags):        
+    def __init__(self,size,flags): 
+        """Initialize a new game"""
+        
         self.size = size
         self.flags = flags
         self.tileMatrix = [[Tile(self.boardToPixelCoord(r,c)) for c in range(self.size)] for r in range(self.size)]
@@ -42,7 +51,7 @@ class Board:
     def initFlags(self):
         for _ in range(self.flags):
             while True:
-                r,c=(randrange(self.size),randrange(self.size))
+                r,c = (randrange(self.size), randrange(self.size))
                 if not self.tileMatrix[r][c].flag:
                     self.tileMatrix[r][c].flag = True
                     break
@@ -59,8 +68,9 @@ class Board:
                 if (i,j)!=(0,0) and (r + i) in range(self.size) and (c + j) in range(self.size):
                     yield (r + i, c + j)
     
-    def pixelToBoardCoord(self,mousePos):
-        mx,my = mousePos
+    def pixelToBoardCoord(self, mousePos):
+        """Convert pixel coordinates to board coordinates"""
+        mx, my = mousePos
         w = round(self.WIDTH / self.size)
         h = round(self.HEIGHT / self.size)
         r = (my - self.OFFSET_Y) // h
@@ -70,14 +80,18 @@ class Board:
             if not self.tileMatrix[r][c].visible:
                 return r,c
     
-    def boardToPixelCoord(self,r,c):
+    def boardToPixelCoord(self, r, c):
+        """Convert board coordinates to pixel coordinates"""
+        
         w = round(self.WIDTH / self.size)
         h = round(self.HEIGHT / self.size)
         x = c * w + self.OFFSET_X
         y = r * h + self.OFFSET_Y
-        return x,y,w,h 
+        return x, y, w, h 
     
-    def gameIdEncode(self,timestamp,base=62):
+    def gameIdEncode(self, timestamp, base=62):
+        """Unique game ID that is determined by the timestamp of the start of the game"""
+        
         alphabet= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_'
         number = int(timestamp * 1000)
         result = ''
@@ -88,14 +102,18 @@ class Board:
         #originalTimestamp = sum(alphabet.index(digit) * base**i for i,digit in enumerate(result)) / 1000
     
     def floodFill(self,r,c):
-        tile=self.tileMatrix[r][c]
+        """Recursive flood fill algorithm"""
+        
+        tile = self.tileMatrix[r][c]
         if not tile.visible:
             tile.show()
             if tile.number == 0:
-                for rn,cn in self.getNeighbors(r, c):
-                    self.floodFill(rn,cn)
+                for rn, cn in self.getNeighbors(r, c):
+                    self.floodFill(rn, cn)
     
     def handle(self,events):
+        """Handle mouse click events for the board"""
+        
         if not self.finished:
             self.hoveredTileCoord = self.pixelToBoardCoord(pg.mouse.get_pos())
             self.clicked = False
@@ -104,6 +122,8 @@ class Board:
                     self.clicked = True
     
     def update(self,delta):
+        """Update the current game state unless game is finished"""
+        
         if not self.finished:
             self.totalTime += delta
             if self.clicked:
@@ -123,11 +143,17 @@ class Board:
     
     @property
     def timeString(self):
+        """Manipulate time format for the total time of gameplay.
+           Remove zeros from HH:MM:SS format
+        """
+        
         return time.strftime("X%#Hh X%#Mm %#Ss", 
                     time.gmtime(int(self.totalTime//1000))) \
                     .replace("X0h ","").replace("X0m ","").replace("X","")
     
     def showAll(self):
+        """Show all tiles after the end of the game"""
+        
         for row in self.tileMatrix:
             for tile in row:
                 if not tile.visible:

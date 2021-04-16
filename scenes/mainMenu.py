@@ -3,7 +3,10 @@ from scene import Scene
 from button import Button
 
 class MainMenu(Scene):
+    """The main menu of the game, first scene after initilization of the game"""
+    
     def __init__(self):
+        """Initialize from superclass and initialize buttons for this scene"""
         super().__init__()
         self.buttonDict = {
             "easy":   Button((150,250,250,50),"EASY: 9x9, 15 FLAGS"),
@@ -14,6 +17,8 @@ class MainMenu(Scene):
         self.buttons = pg.sprite.Group(self.buttonDict.values())
         
     def update(self,delta):
+        """Update the state of buttons"""
+        
         if self.buttonDict["easy"].clicked:
             self.setNextScene("PLAYING",9,15)
         

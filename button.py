@@ -22,6 +22,8 @@ class Button(pg.sprite.Sprite):
         self.pressed = False
 
     def handle(self,events):
+        """Handle mouse click events for the button"""
+        
         self.clicked = False
         self.hovered = True if self.rect.collidepoint(pg.mouse.get_pos()) else False
         for event in events:     
@@ -33,6 +35,8 @@ class Button(pg.sprite.Sprite):
                 self.pressed = False
                     
     def update(self):
+        """Update the button color after pressing or hovering"""
+
         self.image.fill(self.pressedColor if self.pressed else (self.hoverColor if self.hovered else self.normalColor))
         self.image.blit(self.textSurf,self.textRect)
         pg.draw.rect(self.image, self.borderColor, self.image.get_rect(), self.BORDER_THICKNESS)

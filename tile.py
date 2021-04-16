@@ -2,6 +2,8 @@ import pygame as pg
 from resourceLoader import loadFlag, loadFont
 
 class Tile:
+    """Tile class that is responsible for individual tiles inside the board"""
+    
     FONTSIZE = 18
     BORDER_THICKNESS = 1
     SHOWN_BGCOLOR = pg.Color("gray")

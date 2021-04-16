@@ -14,36 +14,38 @@ class CustomMenu(Scene):
             "mainMenu": Button((400, 20, 125, 30), "MAIN MENU")
         }
         self.buttons = pg.sprite.Group(self.buttonDict.values())
-        self.cSize = 9
-        self.cFlags = 15
+        self.customSize = 9
+        self.customFlags = 15
     
     def update(self,delta):
+        """Update custom size and custom flags with each button click"""
+        
         if self.buttonDict["start"].clicked:
-            self.setNextScene("PLAYING",self.cSize,self.cFlags)
+            self.setNextScene("PLAYING",self.customSize,self.customFlags)
         
         elif self.buttonDict["mainMenu"].clicked:
             self.setNextScene("MAIN")
         
         elif self.buttonDict["size++"].clicked:
-            if self.cSize < 20:
-                self.cSize += 1
+            if self.customSize < 20:
+                self.customSize += 1
         
         elif self.buttonDict["size--"].clicked:
-            if self.cSize > 1 and self.cFlags <= ((self.cSize-1) ** 2):
-                self.cSize -= 1
+            if self.customSize > 1 and self.customFlags <= ((self.customSize-1) ** 2):
+                self.customSize -= 1
                 
         elif self.buttonDict["flag++"].clicked:
-            if self.cFlags < 100 and self.cFlags < (self.cSize ** 2):
-                self.cFlags += 1
+            if self.customFlags < 100 and self.customFlags < (self.customSize ** 2):
+                self.customFlags += 1
         
         elif self.buttonDict["flag--"].clicked:
-            if self.cFlags > 1:
-                self.cFlags -= 1
+            if self.customFlags > 1:
+                self.customFlags -= 1
         
         else:
             self.buttons.update()
         
     def render(self):
         super().render()
-        self.drawText(self.screen, (275,250), "SIZE: {0}x{0}".format(self.cSize),self.fonts(15),"center")
-        self.drawText(self.screen, (275,310), f"FLAGS: {self.cFlags}",self.fonts(15),"center")
+        self.drawText(self.screen, (275,250), "SIZE: {0}x{0}".format(self.customSize),self.fonts(15),"center")
+        self.drawText(self.screen, (275,310), f"FLAGS: {self.customFlags}",self.fonts(15),"center")

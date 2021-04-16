@@ -4,6 +4,8 @@ from button import Button
 from board import Board
 
 class Playing(Scene):
+    """Scene for the Flagsweeper gameplay, contains the board"""
+    
     def __init__(self):
         super().__init__()
         self.buttonDict = {
@@ -14,9 +16,11 @@ class Playing(Scene):
         self.board = None
     
     def activate(self,size,flags):
+        """Initialize a new board for each activation"""
         self.board = Board(size,flags)
     
     def deactivate(self):
+        """Cleanup the board after changing the scene"""
         super().deactivate()
         self.board = None
     
@@ -42,6 +46,7 @@ class Playing(Scene):
             self.board.update(delta)
            
     def render(self):
+        """Render the board and also header and footer information"""
         super().render()
         self.board.render(self.screen)
         self.drawText(self.screen, (240, 620), f"TIME: {self.board.timeString}", self.fonts(12), "topleft")

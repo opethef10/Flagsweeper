@@ -1,3 +1,5 @@
+"""Contains functions that are responsible for loading resources."""
+
 import sys
 from pathlib import Path
 from functools import lru_cache
