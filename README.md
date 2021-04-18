@@ -22,4 +22,5 @@
 - run [\_\_setup\_\_.py](__setup__.py) with Python.
 
 ### Screenshots
-<img src="resources/screenshot1.png" width="256"/> <img src="resources/screenshot2.png" width="256"/> <img src="resources/screenshot3.png" width="256"/>
+![](resources/screenshot.png)
+	
